@@ -9,20 +9,17 @@ const Router = () => {
   const { user } = useAuth()
 
   return (
-      <BrowserRouter>
-        <Routes>
-          {
-            user ? (
-                PagesData.filter(row => !row.auth).map(row => (
-                    <Route key={row.title} path={`${row.path}`} element={<MainLayout>{row.element}</MainLayout>}/>
-                ))
-            ) : (
-                <Route path="/" element={<Auth/>}/>
-            )
-          }
-          <Route path="*" element={<Redirect/>}/>
-        </Routes>
-      </BrowserRouter>
+    <BrowserRouter>
+      <Routes>
+        {
+          PagesData.filter(row => !row.auth).map(row => (
+            <Route key={row.title} path={`${row.path}`} element={<MainLayout>{row.element}</MainLayout>} />
+          ))
+        }
+        <Route path="/auth" element={<Auth />} />
+        <Route path="*" element={<Redirect />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

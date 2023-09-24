@@ -1,13 +1,26 @@
 import { useRef } from 'react'
 import ProductCard from "../Cards/ProductCard.jsx"
 import Slider from "react-slick"
+import { BiSolidChevronLeftCircle } from 'react-icons/bi'
+
+const SampleNextArrow = (props) => {
+  const { className, style, onClick } = props;
+  return (
+    <span
+      className={className}
+      style={{ ...style, display: "block", color: 'yellow' }}
+      onClick={onClick}
+    />
+  );
+}
 
 const ProductsSlider = ({ slides }) => {
   const slider = useRef(null)
 
   const settings = {
     dots: false,
-    arrows: true,
+    prevArrow: <SampleNextArrow />,
+    nextArrow: <SampleNextArrow />,
     infinite: true,
     speed: 1000,
     slidesToShow: 7,
@@ -65,8 +78,8 @@ const ProductsSlider = ({ slides }) => {
       <Slider ref={slider} {...settings}>
         {
           slides.map(product => (
-            <div className='px-2 py-4'>
-              <ProductCard key={product.name} {...product} />
+            <div key={product.id} className='px-1 md:px-2 py-4'>
+              <ProductCard key={product.id} {...product} />
             </div>
           ))
         }
