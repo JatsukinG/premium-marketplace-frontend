@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import PagesData from "./PagesData"
-import Auth from "./Auth/index.jsx"
+import Auth from "./auth/index.jsx"
 import MainLayout from "../Layouts/MainLayout.jsx"
 import Redirect from "./Redirect"
 import { useAuth } from "../hooks/useAuth.js"
