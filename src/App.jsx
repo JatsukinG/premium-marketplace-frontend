@@ -8,7 +8,6 @@ import { Toaster } from "react-hot-toast"
 function App() {
   const [user, setUser] = useState(null)
 
-// test
   return (
       <AuthContext.Provider value={{ user, setUser }}>
         <Router/>
