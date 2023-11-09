@@ -1,12 +1,10 @@
-import LOGIN from "../../mutations/login.js"
 import { useMutation } from "@apollo/client"
-import { useNavigate, useSearchParams } from "react-router-dom"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { useForm } from "react-hook-form"
+import LOGIN from "../../mutations/login.js"
 import useAuth from "../../modules/auth/hooks/useAuth.js"
-import { useRecoilState } from "recoil"
-import authTokenState from "../../modules/auth/atoms/authTokenState.js"
 
-const Login = ({ setComponent }) => {
+const Login = () => {
   const { login } = useAuth()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
@@ -20,7 +18,6 @@ const Login = ({ setComponent }) => {
       }
     }
   })
-
 
   if (loading) return 'Submitting...'
   // if (error) return `Submission error! ${error.message}`;
@@ -65,12 +62,12 @@ const Login = ({ setComponent }) => {
           Ingresar
         </button>
         <div className="w-full flex justify-between text-sm underline mt-4">
-          <p onClick={() => setComponent(3)} className="hover:text-blue-700 hover:cursor-pointer">
+          <Link to="/auth/forgot-password" className="hover:text-blue-700">
             Olvide mi contraseña
-          </p>
-          <p onClick={() => setComponent(2)} className="hover:text-blue-700 hover:cursor-pointer">
+          </Link>
+          <Link to="/auth/signup" className="hover:text-blue-700">
             No tengo una cuenta
-          </p>
+          </Link>
         </div>
       </form>
   )
