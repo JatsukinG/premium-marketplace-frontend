@@ -25,7 +25,7 @@ const GET_DASHBOARD_PRODUCTS = gql`
             pagination: { pageSize: 5 },
             filters: {
                 vehicleType: {
-                    eq: "carro"
+                    eq: "car"
                 }
             }
         ) {
@@ -40,7 +40,7 @@ const GET_DASHBOARD_PRODUCTS = gql`
             pagination: { pageSize: 5 },
             filters: {
                 vehicleType: {
-                    eq: "moto"
+                    eq: "bike"
                 }
             }
         ) {
