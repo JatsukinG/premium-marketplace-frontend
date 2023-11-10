@@ -1,36 +1,39 @@
-import LOGIN from "../../mutations/login.js"
 import { useMutation } from "@apollo/client"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { useForm } from "react-hook-form"
-import { useAuth } from "../../hooks/useAuth.js"
+import LOGIN from "../../mutations/login.js"
+import useAuth from "../../modules/auth/hooks/useAuth.js"
 
-const Login = ({ setComponent }) => {
-
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const [loginMutation, { loading, error }] = useMutation(LOGIN);
-  const { login } = useAuth();
-
+const Login = () => {
+  const { login } = useAuth()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const { register, handleSubmit, watch, formState: { errors } } = useForm()
+  const [loginMutation, { loading, error }] = useMutation(LOGIN, {
+    onCompleted: (data) => {
+      const from = searchParams.get('from')
+      if (data.login.jwt) {
+        login(data?.login.jwt)
+        navigate(from ? from : '/')
+      }
+    }
+  })
 
-  if (loading) return 'Submitting...';
+  if (loading) return 'Submitting...'
   // if (error) return `Submission error! ${error.message}`;
 
   const onSubmit = async (data) => {
-    let result = await loginMutation({
+    await loginMutation({
       variables: {
         identifier: data.identifier,
         password: data.password
       }
     })
-
-    if(result.data.login.jwt){
-      login(result.data.login.jwt)
-      navigate('/dashboard')
-    }
   }
 
   return (
-      <form className="w-full flex flex-col my-auto text-gray-700 px-16 items-center animate-in" onSubmit={handleSubmit(onSubmit)}>
+      <form className="w-full flex flex-col my-auto text-gray-700 px-16 items-center animate-in"
+            onSubmit={handleSubmit(onSubmit)}>
         <h3 className="w-full font-bold text-2xl text-left">Iniciar sesión</h3>
         <p className="w-full text-sm text-left">Accede desde tu cuenta</p>
         <div className="w-full flex flex-col mt-12">
@@ -59,12 +62,12 @@ const Login = ({ setComponent }) => {
           Ingresar
         </button>
         <div className="w-full flex justify-between text-sm underline mt-4">
-          <p onClick={() => setComponent(3)} className="hover:text-blue-700 hover:cursor-pointer">
+          <Link to="/auth/forgot-password" className="hover:text-blue-700">
             Olvide mi contraseña
-          </p>
-          <p onClick={() => setComponent(2)} className="hover:text-blue-700 hover:cursor-pointer">
+          </Link>
+          <Link to="/auth/signup" className="hover:text-blue-700">
             No tengo una cuenta
-          </p>
+          </Link>
         </div>
       </form>
   )

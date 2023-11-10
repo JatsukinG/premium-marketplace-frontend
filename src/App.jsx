@@ -1,19 +1,17 @@
-import Router from "./pages/Router.jsx"
-import { AuthContext } from "./context/AuthContext"
-import { useState } from "react"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import { Toaster } from "react-hot-toast"
+import { RecoilRoot } from "recoil"
+import { RouterProvider } from "react-router-dom"
+import router from "./router/index.jsx"
 
 function App() {
-  const [user, setUser] = useState(null)
-  // test
 
   return (
-      <AuthContext.Provider value={{ user, setUser }}>
-        <Router/>
+      <RecoilRoot>
+        <RouterProvider router={router}/>
         <Toaster/>
-      </AuthContext.Provider>
+      </RecoilRoot>
   )
 }
 

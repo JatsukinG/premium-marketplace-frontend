@@ -1,6 +1,7 @@
-import FormInput from "../Inputs/FormInput.jsx"
+import FormInput from "../../components/Inputs/FormInput.jsx"
+import { Link } from "react-router-dom"
 
-const ForgotPassword = ({ setComponent }) => {
+const ForgotPassword = () => {
 
   return (
       <form className="w-full flex flex-col my-auto text-gray-700 px-16 items-center animate-in">
@@ -17,8 +18,10 @@ const ForgotPassword = ({ setComponent }) => {
           Enviar codigo
         </button>
         <p className="w-full py-2 text-sm text-left">
-          Regresar a <span className="underline hover:cursor-pointer hover:text-blue-700" onClick={()=>setComponent(1)}>
-          Iniciar sesión
+          Regresar a <span className="underline hover:cursor-pointer hover:text-blue-700">
+          <Link to="/auth/login">
+            Iniciar sesión
+          </Link>
         </span>
         </p>
       </form>
